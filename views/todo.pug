@@ -1,7 +1,7 @@
 extends layout
 block scripts 
     script. 
-        function async agregar(){
+        function agregar(){
             var tareas = document.getElementById('tarea').value;
             let data = {
                 'item':tareas
@@ -27,6 +27,12 @@ block scripts
                 lista.appendChild(listItem);
             }
         }
+        function eliminar(id){
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST',`/delete/${id}`,true);
+            xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE')
+            xhr.send()
+        }
 block content
   fieldset 
     legend
@@ -35,7 +41,10 @@ block content
    
     ul#listaT 
         each task in tasks 
-            li #{task.task}
+            li 
+                form.form(action=`todo/delete/${task.idT}?_method=DELETE` method="post")
+                    button(type="submit" class="btn-classic bg-gray" onclick=`eliminar(${task.idT})`) X 
+                p.lista #{task.task}
         else 
             p No hay tareas anotadas
     form(action="todo/add" method="post")

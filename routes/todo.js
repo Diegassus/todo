@@ -1,8 +1,8 @@
-
 var express = require('express');
 var router = express.Router();
 router.use(express.urlencoded())
-
+const methodOverride=require('method-override');
+router.use(methodOverride('_method'))
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,7 +29,11 @@ router.post('/add',(req,res,next)=>{
 })
 
 router.delete('/delete/:idTask',(req,res,next)=>{
-    
+  let idTarea = req.params.idTask;
+  let items=req.session.items;
+  const newItems = items.filter(task=>task.idT != idTarea)
+  req.session.items=newItems;
+  res.redirect('/todo')
 })
 
 module.exports = router;
