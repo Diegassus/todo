@@ -1,0 +1,44 @@
+extends layout
+block scripts 
+    script. 
+        function async agregar(){
+            var tareas = document.getElementById('tarea').value;
+            let data = {
+                'item':tareas
+            }
+            const xhr = new XMLHttpRequest()
+            xhr.addEventListener('load',()=>{
+                let rta;
+                if(xhr.status==200||xhr.status==201){
+                    rta = JSON.parse(xhr.response)
+                    cargar(rta)
+                }
+            });
+            xhr.open('POST','/add',true);
+            xhr.setRequestHeader('Content-Type','text/json')
+            xhr.send(JSON.stringify(data))
+        }
+        function cargar(response){
+            if(response.idT){
+                let lista = document.getElementById('listaT');
+                let listItem = document.createElement('li');
+                const text = document.createTextNode(`${response.idT} - ${response.task}`);
+                listItem.appendChild(texto);
+                lista.appendChild(listItem);
+            }
+        }
+block content
+  fieldset 
+    legend
+      h1= title
+    h3 #{title} List for today
+   
+    ul#listaT 
+        each task in tasks 
+            li #{task.task}
+        else 
+            p No hay tareas anotadas
+    form(action="todo/add" method="post")
+        label ¿Qué debería hacer Hoy?
+        input(type="text" id="tarea" name="item")
+        button(type="submit" class="btn-classic" onclick="agregar()" required) Agregar

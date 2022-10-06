@@ -1,0 +1,42 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+label{
+  margin: 0px 10px;
+}
+
+input{
+  padding: 5px 10px;
+  border-radius: 5px;
+  border:1px solid #b7b7b7;
+}
+
+.btn-classic{
+  margin-left:10px ;
+  background-color: #2dc2fd;
+  color: #000;
+  border: 1px solid #b7b7b7;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 1em;
+}
+
+fieldset{
+  padding: 15px 25px;
+  width: 50%;
+  margin: auto;
+}
+
+h3{
+  margin-top: 0;
+}
+
+h1{
+  margin: 0;
+}
